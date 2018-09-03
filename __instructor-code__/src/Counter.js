@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
+
+// 1
+// Import connect from react-redux
 import { connect } from 'react-redux'
+// Import any action creators we will use in this component
+// increment from ducks/counter
 import { increment } from './ducks/counter'
-
-
 
 
 class Counter extends Component {
   render() {
-    // use data from the redux store
-    //and use action creators to tell redux to change stuff, both use this.props
-    const { currentValue, message, state, increment} = this.props
+    // Use data from redux Store
+    // Use action creators to tell redux to change stuff
+    // Both accessed through this.props.X
+    const { currentValue, message, state, increment } = this.props;
     return (
       <div className="app">
         <section className="counter">
@@ -65,21 +69,29 @@ class Counter extends Component {
   }
 }
 
+// 2
+// Get information from app state(redux) and put it on props
+function getDataFromAppState(appState) {
 
-//step 2 get infor from app state(redux) and put it on props
-function getDataFromAppState(appState) { //PROPS GUY 3 step
-  //whatever it was we returned on props
+  //Whatever we return is put on props
   return {
-    message: 'this is coming from my getDataFromAppState function', //Counter get this.props.properties
+    message: 'hello from the other side',
     currentValue: appState.currentValue,
     state: appState
-    
   }
 }
-//3 setup all action creators to put on props
-const actionOutputs = {               //Connects to redux both 80 and 83 are needed
-  increment: increment}//aka increment
-//4 connect steps 2 and 3 together
-const connected = connect(getDataFromAppState, actionOutputs)
-//5 connect step 4 to our commonent
-export default connected(Counter);//this.props goes to Counter
+
+// 3
+// Setup all action creators to put on props
+// increment
+const actionOutputs = {
+  increment: increment
+}
+
+// 4 
+// Connect Steps 2 & 3 together
+const connected = connect(getDataFromAppState, actionOutputs);
+
+// 5
+// Connect step 4 to our component
+export default connected(Counter);
