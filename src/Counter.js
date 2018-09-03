@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { increment } from './ducks/counter'
-
-
+import { decrement } from './ducks/counter'
+import {redo, undo} from  './ducks/counter'
 
 
 class Counter extends Component {
   render() {
     // use data from the redux store
     //and use action creators to tell redux to change stuff, both use this.props
-    const { currentValue, message, state, increment} = this.props
+    const { currentValue, message, increment, decrement, previousValue, futureValue} = this.props
+    console.log(this.props)
     return (
       <div className="app">
         <section className="counter">
@@ -30,28 +31,28 @@ class Counter extends Component {
             </button>
             <button
               className="counter__button decrement-one"
-              onClick={() => null}
+              onClick={() => decrement(-1)}
             >
               -1
             </button>
             <button
               className="counter__button decrement-five"
-              onClick={() => null}
+              onClick={() => decrement(-5)}
             >
               -5
             </button>
             <br />
             <button
               className="counter__button undo"
-              disabled={true}
-              onClick={() => null}
+              disable={previousValue.length === 0}
+              onClick={ () => undo }
             >
               Undo
             </button>
             <button
               className="counter__button redo"
-              disabled={true}
-              onClick={() => null}
+              disable={futureValue.length === 0}
+              onClick={() => redo}
             >
               Redo
             </button>
@@ -78,7 +79,10 @@ function getDataFromAppState(appState) { //PROPS GUY 3 step
 }
 //3 setup all action creators to put on props
 const actionOutputs = {               //Connects to redux both 80 and 83 are needed
-  increment: increment}//aka increment
+  increment: increment,
+  decrement: decrement,
+  redo: redo,
+  undo: undo}//aka increment
 //4 connect steps 2 and 3 together
 const connected = connect(getDataFromAppState, actionOutputs)
 //5 connect step 4 to our commonent
