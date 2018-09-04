@@ -44,14 +44,14 @@ class Counter extends Component {
             <br />
             <button
               className="counter__button undo"
-              disabled={previousValue.length === 0}
+              // disabled={previousValue.length !== 0}
               onClick={() => undo }
             >
               Undo
             </button>
             <button
               className="counter__button redo"
-              disabled={futureValue.length === 0}
+              disabled={futureValue.length !== 0}
               onClick={() => redo}
             >
               Redo
@@ -59,7 +59,7 @@ class Counter extends Component {
           </div>
         </section>
         <section className="state">
-          <pre>{JSON.stringify(this.props.state, null, 2)}</pre>
+          <pre>{JSON.stringify(this.props, null, 2)}</pre>
         </section>
       </div>
     );
