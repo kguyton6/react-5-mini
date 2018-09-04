@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { increment } from './ducks/counter'
-import { decrement } from './ducks/counter'
-import {redo, undo} from  './ducks/counter'
+
+
+import {increment, decrement, redo, undo} from  './ducks/counter'
 
 
 class Counter extends Component {
@@ -44,14 +44,14 @@ class Counter extends Component {
             <br />
             <button
               className="counter__button undo"
-              disable={previousValue.length === 0}
-              onClick={ () => undo }
+              disabled={previousValue.length === 0}
+              onClick={() => undo }
             >
               Undo
             </button>
             <button
               className="counter__button redo"
-              disable={futureValue.length === 0}
+              disabled={futureValue.length === 0}
               onClick={() => redo}
             >
               Redo
@@ -84,6 +84,7 @@ const actionOutputs = {               //Connects to redux both 80 and 83 are nee
   redo: redo,
   undo: undo}//aka increment
 //4 connect steps 2 and 3 together
-const connected = connect(getDataFromAppState, actionOutputs)
+// const connected = connect(getDataFromAppState, actionOutputs)
+const mapStateToProps = state => state
 //5 connect step 4 to our commonent
-export default connected(Counter);//this.props goes to Counter
+export default connect(mapStateToProps, {increment, decrement, redo, undo}) (Counter, );//this.props goes to Counter

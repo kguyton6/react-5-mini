@@ -25,21 +25,19 @@ export function decrement(amount){
     }
 }
 
-export function undo(amount){
+export function undo(){
+    return { type: UNDO }
+}
+export function redo(){
     return {
-        type: UNDO, //action.
+        type: REDO //action.
     }
 }
-export function redo(amount){
-    return {
-        type: REDO, //action.
-    }
-}
 
 
 
-export default function reducer(state = initialState, action){ //REDUCER IS BORN step 1
-    switch(action.type) {
+export default function counter(state = initialState, action){ //REDUCER IS BORN step 1
+    switch( action.type) {
         case INCREMENT: { 
             const newValue = state.currentValue + action.amount 
             const newState = Object.assign({}, state, {currentValue: newValue}) //CHANGES APPS STATE WHICH IS PASSED THROUGH COUNTER/Child 
@@ -62,6 +60,7 @@ export default function reducer(state = initialState, action){ //REDUCER IS BORN
             futureValue: state.futureValue.slice[1],
             previousValue: [state.currentValue, ...state.previousValue],
         }
+        default:  return state
     }
-     return state
+   
  }
